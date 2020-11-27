@@ -1,0 +1,64 @@
+import java.lang.module.Configuration;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class HandleCientRequests {
+    public void Create(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the template type");
+        String type = scanner.nextLine();
+
+        System.out.println("Enter the Contact, email or phone number");
+        String Contact = scanner.nextLine();
+        while (true){
+            if(Contact.equals("email") || Contact.equals("phone")) break;
+            System.out.println("Enter the Contact, email or phone number");
+            Contact = scanner.nextLine();
+        }
+
+        System.out.println("Enter the template type");
+        String Subject = scanner.nextLine();
+
+
+        ArrayList<String> Parameters = new ArrayList<String>();
+        System.out.println("Enter the number of template message parameters");
+        int parameterSize = scanner.nextInt();
+        String parameter;
+        for(int i=0;i<parameterSize;i++) {
+            parameter = scanner.nextLine();
+            Parameters.add(parameter);
+        }
+
+
+        System.out.println("Enter the number of supported languages");
+        int languagesSize = scanner.nextInt();
+        ArrayList<String> Languages = new ArrayList<String>();
+        ArrayList<String> Msgs = new ArrayList<String>();
+        String language,msg;
+        for(int i=0;i<languagesSize;i++){
+            System.out.println("the language, and the message");
+            language = scanner.nextLine();
+            msg = scanner.nextLine();
+            int count = ( msg.split("XXX", -1).length ) - 1;
+            if(count != parameterSize) {
+                System.out.println("Message and parameters size are not equal");
+                i--;
+            }
+        }
+        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Template.class).buildSessionFactory;
+        Session session = sessionFactory.getCurrentSession();
+        try{
+            Template template = new Template(Contact,Subject,type,Parameters,Languages,Msgs);
+            session.beginTransaction();
+            session.save(template);
+            session.getTransaction.commit();
+
+
+        }
+
+    }
+
+
+}
