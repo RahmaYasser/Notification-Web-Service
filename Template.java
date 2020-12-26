@@ -5,15 +5,23 @@ public class Template {
     private String Contact;
     private String Subject;
     private String templateType; // the primary key in DB
-    public List<Message> Messages;
-    public List<Language> Languages;
+    public List<String> Messages;
+    public List<String> Languages;
     private String Content;
 
     public Template() {
         // you may face an error here, you can create this lists above outside this constructor
-        Messages = new ArrayList<>(Messages);
-       Languages = new ArrayList<>(Languages);
+        Messages = new ArrayList<>();
+       Languages = new ArrayList<>();
 
+    }
+
+    public void setMessages(List<String> messages) {
+        Messages = messages;
+    }
+
+    public void setLanguages(List<String> languages) {
+        Languages = languages;
     }
 
     public String getContact() {
@@ -61,10 +69,25 @@ public class Template {
         Content = content;
     }
 
-   /* public Template(String contact, String subject, String type, String languages, String content) {
-        Contact = contact;
-        Subject = subject;
-        templateType = type;
-        Content = content;
-    }*/
+    public int getMessageIndexByLanguage(String language){
+        for(int i=0;i<Languages.size();i++){
+            if(Languages.get(i).equals(language)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int countParametersSize(String language){
+        // find message index from language list
+
+        int index = getMessageIndexByLanguage(language);
+        int count = ( Messages.get(index).split("XXX", -1).length ) - 1;
+        return count;
+    }
+
+    public boolean isLanguageAvailable(String language){
+        if(getMessageIndexByLanguage(language) == -1)return false;
+        return true;
+    }
 }
