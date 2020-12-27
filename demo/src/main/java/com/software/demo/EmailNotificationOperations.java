@@ -7,8 +7,13 @@ import java.sql.SQLException;
 
 public class EmailNotificationOperations implements INotificationDataBaseOperations {
 
+    private static EmailNotificationOperations uniqueInstance =new EmailNotificationOperations();
+    public static EmailNotificationOperations getInstance(){
+        return uniqueInstance;
+    }
+	
 	Connection con;
-	public EmailNotificationOperations() {
+	private EmailNotificationOperations() {
 		String url="jdbc:mysql://localhost:3306/hb_student_tracker";
 		String username="hbstudent";
 		String pass="hbstudent";
