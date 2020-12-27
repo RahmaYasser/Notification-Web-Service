@@ -7,8 +7,12 @@ import java.sql.SQLException;
 
 public class SMSNotificationOperations implements INotificationDataBaseOperations {
 
+	private static final SMSNotificationOperations uniqueInstance = new SMSNotificationOperations();
+    public static SMSNotificationOperations getInstance(){
+        return uniqueInstance;
+    }
 	Connection con;
-	public SMSNotificationOperations() {
+	private SMSNotificationOperations() {
 		String url="jdbc:mysql://localhost:3306/hb_student_tracker";
 		String username="hbstudent";
 		String pass="hbstudent";
