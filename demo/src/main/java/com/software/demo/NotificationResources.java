@@ -14,8 +14,8 @@ import jakarta.ws.rs.core.MediaType;
 @Path("notifications")
 public class NotificationResources {
 	
-	EmailNotificationOperations repoEmail=  new  EmailNotificationOperations();
-	SMSNotificationOperations repoSMS= new SMSNotificationOperations();
+	EmailNotificationOperations repoEmail=   EmailNotificationOperations.getInstance();
+	SMSNotificationOperations repoSMS= SMSNotificationOperations.getInstance();
 	
 	@POST
 	@Path("create")
@@ -37,7 +37,7 @@ public class NotificationResources {
 		
         Template t = new Template();
 		TemplateOperations operation= new TemplateOperations();
-        String st="'"+templateType+"'";     
+        String st=templateType;     
 		t= operation.readTemplate(st);
 		
 		String message= t.getTemplateMessage(language);
