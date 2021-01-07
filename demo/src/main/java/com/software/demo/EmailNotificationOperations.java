@@ -13,7 +13,6 @@ public class EmailNotificationOperations implements INotificationDataBaseOperati
     public static EmailNotificationOperations getInstance(){
         return uniqueInstance;
     }
-	
 	Connection con;
 	private EmailNotificationOperations() {
 		String url="jdbc:mysql://localhost:3306/hb_student_tracker";
@@ -28,8 +27,6 @@ public class EmailNotificationOperations implements INotificationDataBaseOperati
 		
 	}
 	
-	
-	
 	@Override
     public void CreateNotification(Notification notification, boolean status) throws SQLException {
 		
@@ -42,23 +39,19 @@ public class EmailNotificationOperations implements INotificationDataBaseOperati
     	if(status) {
 
 		try {
-
 			st.setString(1, notification.getContact());
 			st.setString(2, notification.getContent());
 			st.executeUpdate();
 			st2.setString(3, "successful");
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}}
+		}
+		}
 		else
-			st2.setString(3, "failed");
+		st2.setString(3, "failed");
 		st2.executeUpdate();
     }
-
-
 
 	@Override
 	public Notification readNotification(int ID) {
@@ -70,18 +63,15 @@ public class EmailNotificationOperations implements INotificationDataBaseOperati
 			Statement st= con.createStatement();
 			ResultSet rs=st.executeQuery(sql);
 			if(rs.next()) {
-				
 				notification.setContact(rs.getString(2));
 				notification.setContent(rs.getString(3));
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return notification;		
 	}
-	
 	@Override
 	public void deleteNotification(int ID) {
 		String sql="delete from emailnotification where ID = ?";
@@ -94,8 +84,5 @@ public class EmailNotificationOperations implements INotificationDataBaseOperati
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-
-  
 }
