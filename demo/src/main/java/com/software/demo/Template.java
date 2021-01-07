@@ -2,10 +2,7 @@ package com.software.demo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlRootElement;
-
-
 @XmlRootElement
 public class Template {
 
@@ -13,8 +10,6 @@ public class Template {
 	private String Subject;
     private String templateType; // the primary key in DB   
     public List<Messages> Messages= new ArrayList<>();
-    
-	
 	public String getSubject() {
 		return Subject;
 	}
@@ -29,8 +24,6 @@ public class Template {
 	    }
 	return "";        
 	}
-
-	
 	@Override
 	public String toString() {
 		return "Template " + ", Subject=" + Subject + ", templateType=" + templateType
