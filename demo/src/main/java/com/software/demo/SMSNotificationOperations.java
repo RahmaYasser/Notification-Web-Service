@@ -15,6 +15,7 @@ public class SMSNotificationOperations implements INotificationDataBaseOperation
     }
 	Connection con;
 	private SMSNotificationOperations() {
+		//connect to database
 		String url="jdbc:mysql://localhost:3306/hb_student_tracker";
 		String username="hbstudent";
 		String pass="hbstudent";
@@ -29,6 +30,7 @@ public class SMSNotificationOperations implements INotificationDataBaseOperation
 	
     @Override
     public void CreateNotification(Notification notification, boolean status) throws SQLException {
+	    //insert to sms notification table in database
     	String sql="insert into smsnotification (contact , content) values(?,?)";
     	String sql2= "insert into notification (content , contact , status) values (?,?,?)";
     	PreparedStatement st= con.prepareStatement(sql);
