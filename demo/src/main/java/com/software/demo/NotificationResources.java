@@ -16,6 +16,7 @@ import jakarta.ws.rs.core.MediaType;
 @Path("notifications")
 public class NotificationResources {
 	
+	//we applied singleton design pattern on this class because this class is responsible for accessing notif DB so it have to be of one object
 	EmailNotificationOperations repoEmail=   EmailNotificationOperations.getInstance();
 	SMSNotificationOperations repoSMS= SMSNotificationOperations.getInstance();
 	
