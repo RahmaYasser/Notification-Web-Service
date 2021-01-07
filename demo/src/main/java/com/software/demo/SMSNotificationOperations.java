@@ -30,16 +30,17 @@ public class SMSNotificationOperations implements INotificationDataBaseOperation
 	
     @Override
     public void CreateNotification(Notification notification, boolean status) throws SQLException {
-	    //insert to sms notification table in database
+	    
     	String sql="insert into smsnotification (contact , content) values(?,?)";
     	String sql2= "insert into notification (content , contact , status) values (?,?,?)";
     	PreparedStatement st= con.prepareStatement(sql);
 		PreparedStatement st2= con.prepareStatement(sql2);
 		st2.setString(1, notification.getContent());
 		st2.setString(2, notification.getContact());
+	    //insert in notification table with it status either fail or success
     	if(status) {
 		try {
-			
+			//insert to sms-notification table in database if it's success
 			st.setString(1, notification.getContact());
 			st.setString(2, notification.getContent());
 			st.executeUpdate();
