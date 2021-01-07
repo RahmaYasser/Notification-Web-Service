@@ -23,10 +23,10 @@ public class NotificationResources {
 	@Path("create/{contact}")
 	@Consumes(MediaType.TEXT_PLAIN)
     public void CreateNotification(@PathParam("contact")String contact,String ClientRequest) throws SQLException{
-		
-		INotificationFactory factory;
-		Notification notification;
-		String[] arr = ClientRequest.split(" ");
+	//to create the notification
+	INotificationFactory factory;
+	Notification notification;
+	String[] arr = ClientRequest.split(" ");
         String language = arr[0];
         String templateType = arr[1];
         String clientContact = arr[2];
@@ -42,7 +42,7 @@ public class NotificationResources {
         String st=templateType;     
 		t= operation.readTemplate(st);
 		String message= t.getTemplateMessage(language);
-		
+		// to know it will add it in emai or sms notification table in database
 		if(contact.equalsIgnoreCase("email")) {
 			
 			factory= new EmailNotificationFactory();
