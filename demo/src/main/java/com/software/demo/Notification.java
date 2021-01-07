@@ -15,6 +15,20 @@ public abstract class Notification {
 		this.contact = contact;
 	}
 	
+	public boolean validateContact() {
+		return true;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Notification [Contact=" + contact + "\ncontent=" + Content + "]";
+	}
+
+	public void setContent(String content) {
+		this.Content = content;
+	}
+	
 	public boolean placeholdersSizeValidation(int placeholdersSize,String messages){
 		int count = (messages.split("XXX", -1).length) - 1;
         if(count == placeholdersSize)return true;
@@ -43,5 +57,4 @@ public abstract class Notification {
         return Content;
     }
 
-    public abstract void sendNotification();
 }

@@ -9,17 +9,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Template {
 
-	private	String contact;
+//	private	String contact;
 	private String Subject;
     private String templateType; // the primary key in DB   
     public List<Messages> Messages= new ArrayList<>();
     
-	public String getContact() {
-		return contact;
-	}
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
+	
 	public String getSubject() {
 		return Subject;
 	}
@@ -38,7 +33,7 @@ public class Template {
 	
 	@Override
 	public String toString() {
-		return "Template [contact=" + contact + ", Subject=" + Subject + ", templateType=" + templateType
+		return "Template " + ", Subject=" + Subject + ", templateType=" + templateType
 				+ ", Messages=" + Messages + "]";
 	}
 	public String getTemplateType() {

@@ -41,6 +41,7 @@ public class TemplateResources {
 			repo.updateTemplate(t);	
 	}
 	
+	
 	@DELETE
 	@Path("template/{type}")
 	public void deleteTemplate(@PathParam("type")String type) {

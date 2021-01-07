@@ -28,14 +28,13 @@ public class TemplateOperations {
 	
 	public void createTemplate(Template template) {
 		
-		String sql="insert into template value(?,?,?)";
+		String sql="insert into template value(?,?)";
 		String sql2="insert into messages value(?,?,?)";
 		try {
 	
 			PreparedStatement st= con.prepareStatement(sql);
-			st.setString(1, template.getContact());
-			st.setString(2, template.getSubject());
-			st.setString(3, template.getTemplateType());
+			st.setString(1, template.getSubject());
+			st.setString(2, template.getTemplateType());
 			st.executeUpdate();
 			PreparedStatement st2= con.prepareStatement(sql2);
 			
@@ -66,9 +65,8 @@ public class TemplateOperations {
 			
 			if(rs.next()) {
 				
-				temp.setContact(rs.getString(1));
-				temp.setSubject(rs.getString(2));
-				temp.setTemplateType(rs.getString(3));
+				temp.setSubject(rs.getString(1));
+				temp.setTemplateType(rs.getString(2));
 				
 				while(rs2.next()) {
 					Messages m= new Messages();
@@ -81,7 +79,7 @@ public class TemplateOperations {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			temp=null;
 			e.printStackTrace();
 		}
 		return temp;
@@ -107,13 +105,12 @@ public class TemplateOperations {
 
 	public void updateTemplate(Template template) {
 		
-		String sql="update template set contact=? , subject=? where templateType=?";
+		String sql="update template set subject=? where templateType=?";
 		String sql2="update messages set messages=? where  language=?";
 		try {
 			PreparedStatement st= con.prepareStatement(sql);
-			st.setString(1, template.getContact());
-			st.setString(2, template.getSubject());
-			st.setString(3, template.getTemplateType());
+			st.setString(1, template.getSubject());
+			st.setString(2, template.getTemplateType());
 			st.executeUpdate();
 			PreparedStatement st2= con.prepareStatement(sql2);
 			

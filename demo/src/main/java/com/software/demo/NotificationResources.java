@@ -1,5 +1,7 @@
 package com.software.demo;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -18,9 +20,9 @@ public class NotificationResources {
 	SMSNotificationOperations repoSMS= SMSNotificationOperations.getInstance();
 	
 	@POST
-	@Path("create")
+	@Path("create/{contact}")
 	@Consumes(MediaType.TEXT_PLAIN)
-    public void CreateNotification(String ClientRequest){
+    public void CreateNotification(@PathParam("contact")String contact,String ClientRequest) throws SQLException{
 		
 		INotificationFactory factory;
 		Notification notification;
@@ -39,31 +41,56 @@ public class NotificationResources {
 		TemplateOperations operation= new TemplateOperations();
         String st=templateType;     
 		t= operation.readTemplate(st);
-		
 		String message= t.getTemplateMessage(language);
 		
-		if(t.getContact().equalsIgnoreCase("email")) {
+		if(contact.equalsIgnoreCase("email")) {
 			
 			factory= new EmailNotificationFactory();
 			notification= factory.CreateNotification(placeholderArr, message, clientContact);
-			
 			if(notification!=null)
-				repoEmail.CreateNotification(notification);
+				repoEmail.CreateNotification(notification, notification.validateContact()); 
 			else
-				System.out.println("Error occurred");
-		
+				System.out.println("Error occurred");	
 		}
 					
 		else {
 			
 			factory= new SMSNotificationFactory();
-			notification= factory.CreateNotification(placeholderArr, message, clientContact);
-			
+			notification= factory.CreateNotification(placeholderArr, message, clientContact);			
 			if(notification!=null)
-				repoSMS.CreateNotification(notification);
+				repoSMS.CreateNotification(notification, notification.validateContact());
 			else
 				System.out.println("Error occurred");
+		}
+	}
+	
+	public void readNotification(int ID, String contact) {
 		
+		Notification notification;
+		if(contact.equalsIgnoreCase("email")) {
+			notification= new EmailNotification();
+			notification=repoEmail.readNotification(ID);
+			
+		}
+		else {
+			 notification = new SMSNotification();
+			 notification=repoSMS.readNotification(ID);
+		}
+		System.out.println(notification);
+		
+	
+	}
+	
+	public void deleteNotification(int ID, String contact) {
+		Notification notification;
+		if(contact.equalsIgnoreCase("email")) {
+			notification= new EmailNotification();
+			repoEmail.deleteNotification(ID);
+			
+		}
+		else {
+			 notification = new SMSNotification();
+			 repoSMS.deleteNotification(ID);
 		}
 	}
         
