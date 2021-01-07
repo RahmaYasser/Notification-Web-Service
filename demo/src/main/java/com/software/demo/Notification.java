@@ -5,12 +5,9 @@ import com.sun.tools.javac.util.StringUtils;
 public abstract class Notification {
     String Content = null;
     String contact=null;
-  
-    
     public String getContact() {
 		return contact;
 	}
-
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
@@ -18,24 +15,18 @@ public abstract class Notification {
 	public boolean validateContact() {
 		return true;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "Notification [Contact=" + contact + "\ncontent=" + Content + "]";
 	}
-
 	public void setContent(String content) {
 		this.Content = content;
 	}
-	
 	public boolean placeholdersSizeValidation(int placeholdersSize,String messages){
 		int count = (messages.split("XXX", -1).length) - 1;
         if(count == placeholdersSize)return true;
         return false;
     }
-
-
 	public void prepareContent(String templateMessage, String[] placeholders) {
 
         String firstPart = "", secondPart = "";
